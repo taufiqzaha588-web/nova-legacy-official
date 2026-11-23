@@ -6,40 +6,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOVA LEGACY | Official Esports</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#090909;color:white}
-header{background:#111;border-bottom:2px solid #d71920;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
-.logo{font-size:25px;font-weight:900;color:#e3262e}
-nav{display:flex;gap:9px;flex-wrap:wrap}
-button{cursor:pointer;border:0;border-radius:6px;padding:11px 16px;font-weight:bold}
-nav button{background:#222;color:white}
-nav button:hover,.active{background:#d71920}
-main{max-width:1100px;margin:auto;padding:35px 20px}
+body{font-family:Arial,sans-serif;background:#090909;color:#fff}
+header{background:#111;border-bottom:2px solid #d71920;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:25px;font-weight:900;color:#ed252d}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+button{cursor:pointer;border:0;border-radius:6px;padding:11px 15px;font-weight:bold}
+nav button,.secondary{background:#292929;color:white}
+button:hover{opacity:.85}
+.primary{background:#d71920;color:white}
+main{max-width:1200px;margin:auto;padding:30px 18px;min-height:70vh}
 section{display:none}
 section.show{display:block}
-.hero{padding:65px 25px;background:linear-gradient(120deg,#21090a,#111);border:1px solid #682025;border-radius:15px;text-align:center}
-.hero h1{font-size:42px;color:#ed252d;margin-bottom:12px}
+.hero{padding:65px 20px;text-align:center;background:linear-gradient(120deg,#26090b,#111);border:1px solid #682025;border-radius:14px}
+.hero h1{font-size:43px;color:#ed252d;margin-bottom:12px}
 .hero p{color:#ccc;line-height:1.7}
-h2{margin-bottom:20px;color:#ed252d}
-h3{margin-bottom:10px}
+h2{color:#ed252d;margin-bottom:20px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px;margin-top:25px}
-.card{background:#151515;border:1px solid #303030;padding:22px;border-radius:10px}
+.card,.formbox{background:#151515;border:1px solid #333;border-radius:10px;padding:22px}
 .card p{color:#bbb;line-height:1.6}
-.member{border-left:4px solid #d71920}
-.formbox{max-width:520px;margin:20px auto;background:#151515;border:1px solid #333;padding:25px;border-radius:12px}
+.formbox{max-width:540px;margin:20px auto}
 input,select{width:100%;padding:13px;margin:8px 0 15px;background:#080808;color:white;border:1px solid #444;border-radius:6px}
 label{font-size:13px;color:#ccc}
-.primary{background:#d71920;color:white;width:100%;margin-top:8px}
-.secondary{background:#333;color:white}
-.message{margin-top:15px;padding:12px;border-radius:6px;background:#252525;color:#eee;line-height:1.5;display:none}
+.full{width:100%;margin-top:8px}
 .small{font-size:13px;color:#aaa;line-height:1.6}
-.status{display:inline-block;padding:7px 12px;border-radius:5px;background:#333;margin:8px 0}
-footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margin-top:40px}
+.message{display:none;margin-top:15px;padding:12px;background:#252525;border-radius:6px;line-height:1.5}
+.status{display:inline-block;padding:7px 11px;border-radius:5px;background:#333;margin:8px 0;font-size:12px;font-weight:bold}
+.status-approved{background:#164b2b;color:#8af0a9}
+.status-pending{background:#594317;color:#ffe09a}
+.status-rejected{background:#591d20;color:#ffaaaa}
+.admin-title{border-bottom:1px solid #333;padding-bottom:15px;margin-bottom:20px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
+.stat{background:#171717;padding:18px;border:1px solid #333;border-radius:9px}
+.stat strong{font-size:28px;color:#ed252d;display:block;margin-top:8px}
+.table-wrap{overflow-x:auto;background:#151515;border:1px solid #333;border-radius:9px}
+table{width:100%;border-collapse:collapse;min-width:850px}
+th,td{text-align:left;padding:13px;border-bottom:1px solid #333;font-size:13px}
+th{background:#222;color:#ed252d}
+td{color:#ddd}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.actions button{padding:8px;font-size:11px}
+.green{background:#176b36;color:white}
+.red{background:#9e2228;color:white}
+.orange{background:#9a6717;color:white}
+.admin-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.admin-nav button{background:#282828;color:white}
+.admin-nav button.active{background:#d71920}
+.panel-page{display:none}
+.panel-page.show{display:block}
+footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222}
+@media(max-width:600px){
+ header{justify-content:center;text-align:center}
+ .hero h1{font-size:32px}
+ main{padding:22px 12px}
+}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -48,8 +71,7 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
     <button onclick="showPage('home')">UTAMA</button>
     <button onclick="showPage('roster')">ROSTER</button>
     <button onclick="showPage('recruit')">REKRUTAN</button>
-    <button onclick="showPage('tournament')">KEJOHANAN</button>
-    <button onclick="showPage('account')">LOG MASUK</button>
+    <button onclick="showPage('account')">AKAUN</button>
   </nav>
 </header>
 
@@ -61,9 +83,8 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
     <h3>ONE TEAM ONE VICTORY ONE LEGACY</h3>
     <p>Selamat datang ke laman rasmi NOVA LEGACY.</p>
     <br>
-    <button class="primary" style="max-width:220px" onclick="showPage('account')">LOG MASUK / DAFTAR</button>
+    <button class="primary" onclick="showPage('account')">LOG MASUK / DAFTAR</button>
   </div>
-
   <div class="cards">
     <div class="card"><h3>ROSTER</h3><p>Kenali barisan pemain NOVA LEGACY.</p></div>
     <div class="card"><h3>REKRUTAN</h3><p>Sertai komuniti dan pasukan kami.</p></div>
@@ -74,9 +95,9 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
 <section id="roster">
   <h2>ROSTER RASMI</h2>
   <div class="cards">
-    <div class="card member"><h3>ZIKZZX</h3><p>Pemain NOVA LEGACY</p></div>
-    <div class="card member"><h3>ACEPSS</h3><p>Pemain NOVA LEGACY</p></div>
-    <div class="card member"><h3>KAELZZ</h3><p>Pemain NOVA LEGACY</p></div>
+    <div class="card"><h3>ZIKZZX</h3><p>Pemain NOVA LEGACY</p></div>
+    <div class="card"><h3>ACEPSS</h3><p>Pemain NOVA LEGACY</p></div>
+    <div class="card"><h3>KAELZZ</h3><p>Pemain NOVA LEGACY</p></div>
   </div>
 </section>
 
@@ -84,17 +105,9 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
   <h2>REKRUTAN PEMAIN</h2>
   <div class="card">
     <h3>Sertai NOVA LEGACY</h3>
-    <p>Calon pemain boleh mendaftar akaun melalui portal rasmi. Permohonan akan disemak oleh pihak pengurusan.</p>
+    <p>Daftar akaun pemain melalui portal rasmi. Permohonan akan disemak oleh pihak pengurusan.</p>
     <br>
-    <button class="primary" onclick="showPage('account')">DAFTAR SEKARANG</button>
-  </div>
-</section>
-
-<section id="tournament">
-  <h2>KEJOHANAN</h2>
-  <div class="card">
-    <h3>NOVA LEGACY ESPORTS</h3>
-    <p>Maklumat kejohanan dan keputusan rasmi akan dikemas kini oleh pihak pengurusan.</p>
+    <button class="primary" onclick="showPage('account');showRegister()">DAFTAR SEKARANG</button>
   </div>
 </section>
 
@@ -102,28 +115,24 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
   <div id="authArea" class="formbox">
     <h2>LOG MASUK</h2>
     <label>E-mel</label>
-    <input id="loginEmail" type="email" placeholder="Masukkan e-mel">
+    <input id="loginEmail" type="email" placeholder="E-mel akaun">
     <label>Kata laluan</label>
-    <input id="loginPassword" type="password" placeholder="Masukkan kata laluan">
-    <button class="primary" onclick="login()">LOG MASUK</button>
+    <input id="loginPassword" type="password" placeholder="Kata laluan">
+    <button class="primary full" onclick="login()">LOG MASUK</button>
     <br><br>
     <p class="small">Belum mempunyai akaun?</p>
-    <button class="secondary" onclick="showRegister()">DAFTAR AKAUN</button>
+    <button class="secondary full" onclick="showRegister()">DAFTAR AKAUN</button>
     <div id="loginMessage" class="message"></div>
   </div>
 
   <div id="registerArea" class="formbox" style="display:none">
     <h2>PENDAFTARAN PEMAIN</h2>
-
     <label>Nama penuh</label>
     <input id="regName" placeholder="Nama penuh">
-
     <label>Nickname</label>
     <input id="regNickname" placeholder="Nickname permainan">
-
     <label>Game ID</label>
     <input id="regGameID" placeholder="Game ID">
-
     <label>Role permainan</label>
     <select id="regGameRole">
       <option value="">Pilih role</option>
@@ -133,25 +142,18 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
       <option>Jungler</option>
       <option>Roamer</option>
     </select>
-
     <label>E-mel</label>
     <input id="regEmail" type="email" placeholder="E-mel aktif">
-
     <label>Kata laluan</label>
     <input id="regPassword" type="password" placeholder="Minimum 6 aksara">
-
-    <p class="small">Jawatan akaun ditetapkan secara automatik sebagai PLAYER. Semua akaun baharu bermula dengan status PENDING.</p>
-    <br>
-    <button class="primary" onclick="register()">HANTAR PENDAFTARAN</button>
-    <br><br>
-    <button class="secondary" onclick="showLogin()">KEMBALI KE LOG MASUK</button>
+    <p class="small">Akaun baharu akan ditetapkan sebagai PLAYER dan PENDING secara automatik.</p>
+    <button class="primary full" onclick="register()">HANTAR PENDAFTARAN</button>
+    <button class="secondary full" onclick="showLogin()">KEMBALI</button>
     <div id="registerMessage" class="message"></div>
   </div>
 
-  <div id="dashboard" class="formbox" style="display:none">
-    <h2>DASHBOARD PEMAIN</h2>
-    <p class="small">Selamat datang ke portal NOVA LEGACY.</p>
-    <br>
+  <div id="dashboard" class="formbox" style="display:none;max-width:700px">
+    <h2>DASHBOARD AKAUN</h2>
     <p>Nama: <b id="profileName">-</b></p><br>
     <p>Nickname: <b id="profileNickname">-</b></p><br>
     <p>Game ID: <b id="profileGameID">-</b></p><br>
@@ -160,9 +162,63 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
     <p>Status akaun:</p>
     <span class="status" id="profileStatus">-</span>
     <p class="small" id="statusInfo"></p>
-    <br>
-    <button class="secondary" onclick="logout()">LOG KELUAR</button>
+    <div id="adminAccess" style="display:none;margin-top:22px">
+      <button class="primary full" onclick="openAdmin()">BUKA PANEL SUPER ADMIN</button>
+    </div>
+    <button class="secondary full" onclick="logout()">LOG KELUAR</button>
   </div>
+</section>
+
+<section id="adminPanel">
+  <div class="admin-title">
+    <h2>SUPER ADMIN PANEL</h2>
+    <p class="small">NOVA LEGACY MANAGEMENT SYSTEM</p>
+    <p class="small">Akses khas untuk Super Admin yang diluluskan.</p>
+  </div>
+
+  <div class="admin-nav">
+    <button class="active" onclick="showAdminPage('overview',this)">DASHBOARD</button>
+    <button onclick="showAdminPage('players',this)">PENGURUSAN PEMAIN</button>
+  </div>
+
+  <div id="overview" class="panel-page show">
+    <h3>Ringkasan Organisasi</h3>
+    <div class="stats">
+      <div class="stat">JUMLAH PEMAIN<strong id="totalPlayers">0</strong></div>
+      <div class="stat">PENDING<strong id="pendingPlayers">0</strong></div>
+      <div class="stat">APPROVED<strong id="approvedPlayers">0</strong></div>
+      <div class="stat">MANAGER<strong id="managerPlayers">0</strong></div>
+    </div>
+    <button class="primary" onclick="loadAdminPlayers()">SEGARKAN DATA</button>
+  </div>
+
+  <div id="players" class="panel-page">
+    <h3>Pengurusan Akaun Pemain</h3>
+    <p class="small">Kelulusan, penolakan dan pelantikan Manager.</p>
+    <br>
+    <button class="primary" onclick="loadAdminPlayers()">SEGARKAN SENARAI</button>
+    <br><br>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>NAMA / NICKNAME</th>
+            <th>GAME ID</th>
+            <th>ROLE GAME</th>
+            <th>JAWATAN</th>
+            <th>STATUS</th>
+            <th>TINDAKAN</th>
+          </tr>
+        </thead>
+        <tbody id="playerRows">
+          <tr><td colspan="6">Tekan segarkan senarai.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <button class="secondary" onclick="showPage('account')">KEMBALI KE DASHBOARD</button>
 </section>
 
 </main>
@@ -177,14 +233,21 @@ footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margi
 const SUPABASE_URL = "https://zxupksrrovhhuegxeeyj.supabase.co";
 const SUPABASE_KEY = "sb_publishable_A4aTowB3xAnV1Sse9RgSdA_VACaWkBM";
 
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+let currentUser = null;
+let currentProfile = null;
+let adminPlayers = [];
 
 function showPage(id){
   document.querySelectorAll("main section").forEach(s=>s.classList.remove("show"));
   document.getElementById(id).classList.add("show");
+}
+
+function showMessage(id,msg){
+  const box=document.getElementById(id);
+  box.style.display="block";
+  box.textContent=msg;
 }
 
 function showRegister(){
@@ -199,12 +262,6 @@ function showLogin(){
   document.getElementById("dashboard").style.display="none";
 }
 
-function showMessage(id,message){
-  const box=document.getElementById(id);
-  box.style.display="block";
-  box.textContent=message;
-}
-
 async function register(){
   const full_name=document.getElementById("regName").value.trim();
   const nickname=document.getElementById("regNickname").value.trim();
@@ -217,23 +274,14 @@ async function register(){
     showMessage("registerMessage","Sila lengkapkan semua maklumat.");
     return;
   }
-
   if(password.length<6){
-    showMessage("registerMessage","Kata laluan mesti sekurang-kurangnya 6 aksara.");
+    showMessage("registerMessage","Kata laluan minimum 6 aksara.");
     return;
   }
 
   const {data,error}=await db.auth.signUp({
-    email,
-    password,
-    options:{
-      data:{
-        full_name,
-        nickname,
-        game_id,
-        game_role
-      }
-    }
+    email,password,
+    options:{data:{full_name,nickname,game_id,game_role}}
   });
 
   if(error){
@@ -244,7 +292,7 @@ async function register(){
   if(data.session){
     await loadProfile();
   }else{
-    showMessage("registerMessage","Pendaftaran berjaya dihantar. Sila semak e-mel untuk pengesahan jika diminta, kemudian log masuk.");
+    showMessage("registerMessage","Pendaftaran berjaya. Sila semak e-mel untuk pengesahan jika diminta, kemudian log masuk.");
   }
 }
 
@@ -258,26 +306,25 @@ async function login(){
   }
 
   const {error}=await db.auth.signInWithPassword({email,password});
-
   if(error){
     showMessage("loginMessage","Log masuk gagal: "+error.message);
     return;
   }
-
   await loadProfile();
 }
 
 async function loadProfile(){
-  const {data:{user}}=await db.auth.getUser();
+  const {data:{user},error:userError}=await db.auth.getUser();
 
-  if(!user){
+  if(userError||!user){
     showLogin();
     return;
   }
 
-  const {data,error}=await db
-    .from("profiles")
-    .select("full_name,nickname,game_id,game_role,role,status")
+  currentUser=user;
+
+  const {data,error}=await db.from("profiles")
+    .select("id,full_name,nickname,game_id,game_role,email,role,status")
     .eq("id",user.id)
     .single();
 
@@ -286,37 +333,194 @@ async function loadProfile(){
     return;
   }
 
+  currentProfile=data;
+
   document.getElementById("profileName").textContent=data.full_name||"-";
   document.getElementById("profileNickname").textContent=data.nickname||"-";
   document.getElementById("profileGameID").textContent=data.game_id||"-";
   document.getElementById("profileGameRole").textContent=data.game_role||"-";
   document.getElementById("profileRole").textContent=(data.role||"player").toUpperCase();
-  document.getElementById("profileStatus").textContent=(data.status||"pending").toUpperCase();
+
+  const status=data.status||"pending";
+  const statusBox=document.getElementById("profileStatus");
+  statusBox.textContent=status.toUpperCase();
+  statusBox.className="status status-"+status;
 
   document.getElementById("statusInfo").textContent=
-    data.status==="approved"
-    ? "Akaun anda telah diluluskan."
-    : "Akaun anda sedang menunggu kelulusan pihak pengurusan.";
+    status==="approved"?"Akaun anda telah diluluskan.":
+    status==="rejected"?"Permohonan akaun anda telah ditolak. Sila hubungi pihak pengurusan.":
+    "Akaun anda sedang menunggu kelulusan pihak pengurusan.";
+
+  const isAdmin=data.role==="super_admin"&&data.status==="approved";
+  document.getElementById("adminAccess").style.display=isAdmin?"block":"none";
 
   document.getElementById("authArea").style.display="none";
   document.getElementById("registerArea").style.display="none";
   document.getElementById("dashboard").style.display="block";
+
   showPage("account");
+}
+
+function openAdmin(){
+  if(!currentProfile||currentProfile.role!=="super_admin"||currentProfile.status!=="approved"){
+    alert("Akses ditolak. Super Admin sahaja dibenarkan.");
+    return;
+  }
+  showPage("adminPanel");
+  loadAdminPlayers();
+}
+
+function showAdminPage(id,button){
+  document.querySelectorAll(".panel-page").forEach(p=>p.classList.remove("show"));
+  document.getElementById(id).classList.add("show");
+  document.querySelectorAll(".admin-nav button").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+}
+
+function escapeHTML(value){
+  return String(value??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+async function loadAdminPlayers(){
+  if(!currentProfile||currentProfile.role!=="super_admin"||currentProfile.status!=="approved"){
+    alert("Akses tidak dibenarkan.");
+    return;
+  }
+
+  const tbody=document.getElementById("playerRows");
+  tbody.innerHTML="<tr><td colspan='6'>Sedang memuatkan data...</td></tr>";
+
+  const {data,error}=await db.from("profiles")
+    .select("id,full_name,nickname,game_id,game_role,email,role,status,created_at")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    tbody.innerHTML="<tr><td colspan='6'>Ralat: "+escapeHTML(error.message)+"</td></tr>";
+    return;
+  }
+
+  adminPlayers=data||[];
+
+  document.getElementById("totalPlayers").textContent=adminPlayers.length;
+  document.getElementById("pendingPlayers").textContent=adminPlayers.filter(p=>p.status==="pending").length;
+  document.getElementById("approvedPlayers").textContent=adminPlayers.filter(p=>p.status==="approved").length;
+  document.getElementById("managerPlayers").textContent=adminPlayers.filter(p=>p.role==="manager"&&p.status==="approved").length;
+
+  if(!adminPlayers.length){
+    tbody.innerHTML="<tr><td colspan='6'>Tiada akaun pemain.</td></tr>";
+    return;
+  }
+
+  tbody.innerHTML=adminPlayers.map(p=>{
+    const isSelf=p.id===currentUser.id;
+    const isSuper=p.role==="super_admin";
+    let actions="";
+
+    if(!isSelf&&!isSuper){
+      if(p.status!=="approved"){
+        actions+='<button class="green" onclick="approvePlayer(\''+p.id+'\')">APPROVE</button>';
+      }
+      if(p.status!=="rejected"){
+        actions+='<button class="red" onclick="rejectPlayer(\''+p.id+'\')">REJECT</button>';
+      }
+      if(p.status==="approved"&&p.role!=="manager"){
+        actions+='<button class="orange" onclick="promoteManager(\''+p.id+'\')">JADIKAN MANAGER</button>';
+      }
+      if(p.role==="manager"){
+        actions+='<button class="secondary" onclick="demoteManager(\''+p.id+'\')">TURUNKAN</button>';
+      }
+    }else if(isSelf){
+      actions="AKAUN ANDA";
+    }else{
+      actions="AKAUN SUPER ADMIN";
+    }
+
+    return `<tr>
+      <td><b>${escapeHTML(p.nickname||"-")}</b><br>${escapeHTML(p.full_name||"-")}<br><span class="small">${escapeHTML(p.email||"")}</span></td>
+      <td>${escapeHTML(p.game_id||"-")}</td>
+      <td>${escapeHTML(p.game_role||"-")}</td>
+      <td>${escapeHTML((p.role||"player").toUpperCase())}</td>
+      <td>${escapeHTML((p.status||"pending").toUpperCase())}</td>
+      <td><div class="actions">${actions}</div></td>
+    </tr>`;
+  }).join("");
+}
+
+async function updatePlayer(id,changes,successMessage){
+  if(!currentProfile||currentProfile.role!=="super_admin"||currentProfile.status!=="approved"){
+    alert("Akses ditolak.");
+    return;
+  }
+  if(id===currentUser.id){
+    alert("Anda tidak boleh mengubah jawatan atau status akaun sendiri melalui panel ini.");
+    return;
+  }
+
+  const target=adminPlayers.find(p=>p.id===id);
+  if(!target||target.role==="super_admin"){
+    alert("Akaun Super Admin tidak boleh diubah melalui tindakan ini.");
+    return;
+  }
+
+  const {data,error}=await db.from("profiles")
+    .update(changes)
+    .eq("id",id)
+    .neq("role","super_admin")
+    .select("id");
+
+  if(error){
+    alert("Gagal mengemas kini: "+error.message);
+    return;
+  }
+
+  if(!data||data.length===0){
+    alert("Tiada perubahan dibuat. Semak kebenaran database.");
+    return;
+  }
+
+  alert(successMessage);
+  await loadAdminPlayers();
+}
+
+async function approvePlayer(id){
+  if(!confirm("Luluskan akaun pemain ini?"))return;
+  await updatePlayer(id,{status:"approved"},"Akaun pemain berjaya diluluskan.");
+}
+
+async function rejectPlayer(id){
+  if(!confirm("Tolak permohonan pemain ini?"))return;
+  await updatePlayer(id,{status:"rejected",role:"player"},"Permohonan pemain telah ditolak.");
+}
+
+async function promoteManager(id){
+  if(!confirm("Lantik pemain ini sebagai Manager?"))return;
+  await updatePlayer(id,{role:"manager",status:"approved"},"Pemain berjaya dilantik sebagai Manager.");
+}
+
+async function demoteManager(id){
+  if(!confirm("Turunkan Manager ini kepada Player?"))return;
+  await updatePlayer(id,{role:"player"},"Manager telah diturunkan kepada Player.");
 }
 
 async function logout(){
   await db.auth.signOut();
+  currentUser=null;
+  currentProfile=null;
+  document.getElementById("adminAccess").style.display="none";
+  document.getElementById("dashboard").style.display="none";
   showLogin();
   showPage("account");
 }
 
-db.auth.onAuthStateChange((event,session)=>{
-  if(event==="SIGNED_IN" && session){
-    loadProfile();
-  }
-});
+async function restoreSession(){
+  const {data:{session}}=await db.auth.getSession();
+  if(session)await loadProfile();
+}
 
+restoreSession();
 </script>
 </body>
 </html>
->
+
