@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA LEGACY | OFFICIAL ESPORTS</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080808;color:#fff;font-family:Arial,sans-serif}
+header{padding:30px 15px;text-align:center;background:#151515;border-bottom:3px solid #e32636}
+header h1{color:#f33;font-size:32px;letter-spacing:4px;margin:0}
+header p{font-size:11px;letter-spacing:3px;color:#bbb}
+main{max-width:1000px;margin:auto;padding:20px}
+.hero{padding:45px 20px;text-align:center;background:linear-gradient(130deg,#29090d,#111);border:1px solid #512027;border-radius:15px}
+.hero h2{font-size:30px}
+.red{color:#ff3548}
+.card{background:#161616;padding:22px;border:1px solid #333;border-radius:12px;margin:18px 0}
+h2,h3{color:#ff3548}
+button{background:#e32636;color:white;border:0;padding:13px 20px;border-radius:7px;font-weight:bold;cursor:pointer}
+button:hover{background:#a91525}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+nav button{flex:1}
+input,select{width:100%;padding:13px;margin:7px 0;background:#090909;color:white;border:1px solid #444;border-radius:7px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.player{background:#222;padding:18px;border-radius:10px;text-align:center}
+.small{color:#aaa;font-size:12px}
+footer{text-align:center;padding:25px;color:#888;border-top:1px solid #333}
+.page{display:none}
+.page.active{display:block}
+</style>
+</head>
+<body>
+
+<header>
+<h1>NOVA LEGACY</h1>
+<p>ONE TEAM ONE VICTORY ONE LEGACY</p>
+</header>
+
+<main>
+<section class="hero">
+<h2>WELCOME TO <span class="red">NOVA LEGACY</span></h2>
+<p>OFFICIAL ESPORTS ORGANIZATION</p>
+<p>Building Champions. Creating Legacy.</p>
+<button onclick="openPage('about')">KENALI KAMI</button>
+</section>
+
+<nav>
+<button onclick="openPage('home')">UTAMA</button>
+<button onclick="openPage('roster')">ROSTER</button>
+<button onclick="openPage('recruitment')">REKRUTAN</button>
+<button onclick="openPage('tournament')">KEJOHANAN</button>
+<button onclick="openPage('login')">LOG MASUK</button>
+</nav>
+
+<section id="home" class="page active">
+<div class="card">
+<h2>DASHBOARD ORGANISASI</h2>
+<p>Selamat datang ke portal rasmi NOVA LEGACY.</p>
+<p class="small">ONE TEAM ONE VICTORY ONE LEGACY</p>
+</div>
+<div class="grid">
+<div class="card"><h3>ROSTER</h3><p>Senarai pemain rasmi.</p></div>
+<div class="card"><h3>REKRUTAN</h3><p>Sertai keluarga NOVA LEGACY.</p></div>
+<div class="card"><h3>KEJOHANAN</h3><p>Aktiviti dan pertandingan.</p></div>
+<div class="card"><h3>PRESTASI</h3><p>Rekod pencapaian organisasi.</p></div>
+</div>
+</section>
+
+<section id="about" class="page">
+<div class="card">
+<h2>TENTANG NOVA LEGACY</h2>
+<p>NOVA LEGACY ialah organisasi esports yang berusaha membina pasukan berdisiplin, berkemahiran dan bersemangat tinggi.</p>
+<p><b>ONE TEAM ONE VICTORY ONE LEGACY</b></p>
+</div>
+</section>
+
+<section id="roster" class="page">
+<div class="card">
+<h2>ROSTER RASMI</h2>
+<div class="grid">
+<div class="player"><h3>ZIKZZX</h3><p>Pemain</p></div>
+<div class="player"><h3>ACEPSS</h3><p>Pemain</p></div>
+<div class="player"><h3>KAELZZ</h3><p>Pemain</p></div>
+</div>
+</div>
+</section>
+
+<section id="recruitment" class="page">
+<div class="card">
+<h2>PERMOHONAN PEMAIN</h2>
+<p>Permohonan boleh dibuat melalui pihak pengurusan NOVA LEGACY.</p>
+<p class="small">Borang ini belum disambungkan kepada pangkalan data.</p>
+</div>
+</section>
+
+<section id="tournament" class="page">
+<div class="card">
+<h2>KEJOHANAN</h2>
+<p>Maklumat kejohanan akan dikemas kini oleh pihak organisasi.</p>
+</div>
+</section>
+
+<section id="login" class="page">
+<div class="card">
+<h2>LOG MASUK AHLI</h2>
+<input type="email" placeholder="Email">
+<input type="password" placeholder="Kata laluan">
+<button onclick="alert('Sistem login belum disambungkan.')">LOG MASUK</button>
+<p class="small">Sistem akaun Supabase belum disambungkan.</p>
+</div>
+</section>
+
+</main>
+
+<footer>
+<h3>NOVA LEGACY</h3>
+<p>ONE TEAM ONE VICTORY ONE LEGACY</p>
+<p class="small">© 2026 NOVA LEGACY OFFICIAL ESPORTS</p>
+</footer>
+
+<script>
+function openPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+const page=document.getElementById(id);
+if(page)page.classList.add('active');
+window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
