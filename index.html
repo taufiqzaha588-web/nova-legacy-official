@@ -3,129 +3,320 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NOVA LEGACY | OFFICIAL ESPORTS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA LEGACY | Official Esports</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#080808;color:#fff;font-family:Arial,sans-serif}
-header{padding:30px 15px;text-align:center;background:#151515;border-bottom:3px solid #e32636}
-header h1{color:#f33;font-size:32px;letter-spacing:4px;margin:0}
-header p{font-size:11px;letter-spacing:3px;color:#bbb}
-main{max-width:1000px;margin:auto;padding:20px}
-.hero{padding:45px 20px;text-align:center;background:linear-gradient(130deg,#29090d,#111);border:1px solid #512027;border-radius:15px}
-.hero h2{font-size:30px}
-.red{color:#ff3548}
-.card{background:#161616;padding:22px;border:1px solid #333;border-radius:12px;margin:18px 0}
-h2,h3{color:#ff3548}
-button{background:#e32636;color:white;border:0;padding:13px 20px;border-radius:7px;font-weight:bold;cursor:pointer}
-button:hover{background:#a91525}
-nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
-nav button{flex:1}
-input,select{width:100%;padding:13px;margin:7px 0;background:#090909;color:white;border:1px solid #444;border-radius:7px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.player{background:#222;padding:18px;border-radius:10px;text-align:center}
-.small{color:#aaa;font-size:12px}
-footer{text-align:center;padding:25px;color:#888;border-top:1px solid #333}
-.page{display:none}
-.page.active{display:block}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#090909;color:white}
+header{background:#111;border-bottom:2px solid #d71920;padding:20px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:25px;font-weight:900;color:#e3262e}
+nav{display:flex;gap:9px;flex-wrap:wrap}
+button{cursor:pointer;border:0;border-radius:6px;padding:11px 16px;font-weight:bold}
+nav button{background:#222;color:white}
+nav button:hover,.active{background:#d71920}
+main{max-width:1100px;margin:auto;padding:35px 20px}
+section{display:none}
+section.show{display:block}
+.hero{padding:65px 25px;background:linear-gradient(120deg,#21090a,#111);border:1px solid #682025;border-radius:15px;text-align:center}
+.hero h1{font-size:42px;color:#ed252d;margin-bottom:12px}
+.hero p{color:#ccc;line-height:1.7}
+h2{margin-bottom:20px;color:#ed252d}
+h3{margin-bottom:10px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px;margin-top:25px}
+.card{background:#151515;border:1px solid #303030;padding:22px;border-radius:10px}
+.card p{color:#bbb;line-height:1.6}
+.member{border-left:4px solid #d71920}
+.formbox{max-width:520px;margin:20px auto;background:#151515;border:1px solid #333;padding:25px;border-radius:12px}
+input,select{width:100%;padding:13px;margin:8px 0 15px;background:#080808;color:white;border:1px solid #444;border-radius:6px}
+label{font-size:13px;color:#ccc}
+.primary{background:#d71920;color:white;width:100%;margin-top:8px}
+.secondary{background:#333;color:white}
+.message{margin-top:15px;padding:12px;border-radius:6px;background:#252525;color:#eee;line-height:1.5;display:none}
+.small{font-size:13px;color:#aaa;line-height:1.6}
+.status{display:inline-block;padding:7px 12px;border-radius:5px;background:#333;margin:8px 0}
+footer{text-align:center;padding:25px;color:#777;border-top:1px solid #222;margin-top:40px}
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>NOVA LEGACY</h1>
-<p>ONE TEAM ONE VICTORY ONE LEGACY</p>
+  <div class="logo">NOVA LEGACY</div>
+  <nav>
+    <button onclick="showPage('home')">UTAMA</button>
+    <button onclick="showPage('roster')">ROSTER</button>
+    <button onclick="showPage('recruit')">REKRUTAN</button>
+    <button onclick="showPage('tournament')">KEJOHANAN</button>
+    <button onclick="showPage('account')">LOG MASUK</button>
+  </nav>
 </header>
 
 <main>
-<section class="hero">
-<h2>WELCOME TO <span class="red">NOVA LEGACY</span></h2>
-<p>OFFICIAL ESPORTS ORGANIZATION</p>
-<p>Building Champions. Creating Legacy.</p>
-<button onclick="openPage('about')">KENALI KAMI</button>
+
+<section id="home" class="show">
+  <div class="hero">
+    <h1>NOVA LEGACY</h1>
+    <h3>ONE TEAM ONE VICTORY ONE LEGACY</h3>
+    <p>Selamat datang ke laman rasmi NOVA LEGACY.</p>
+    <br>
+    <button class="primary" style="max-width:220px" onclick="showPage('account')">LOG MASUK / DAFTAR</button>
+  </div>
+
+  <div class="cards">
+    <div class="card"><h3>ROSTER</h3><p>Kenali barisan pemain NOVA LEGACY.</p></div>
+    <div class="card"><h3>REKRUTAN</h3><p>Sertai komuniti dan pasukan kami.</p></div>
+    <div class="card"><h3>KEJOHANAN</h3><p>Ikuti perkembangan pertandingan.</p></div>
+  </div>
 </section>
 
-<nav>
-<button onclick="openPage('home')">UTAMA</button>
-<button onclick="openPage('roster')">ROSTER</button>
-<button onclick="openPage('recruitment')">REKRUTAN</button>
-<button onclick="openPage('tournament')">KEJOHANAN</button>
-<button onclick="openPage('login')">LOG MASUK</button>
-</nav>
-
-<section id="home" class="page active">
-<div class="card">
-<h2>DASHBOARD ORGANISASI</h2>
-<p>Selamat datang ke portal rasmi NOVA LEGACY.</p>
-<p class="small">ONE TEAM ONE VICTORY ONE LEGACY</p>
-</div>
-<div class="grid">
-<div class="card"><h3>ROSTER</h3><p>Senarai pemain rasmi.</p></div>
-<div class="card"><h3>REKRUTAN</h3><p>Sertai keluarga NOVA LEGACY.</p></div>
-<div class="card"><h3>KEJOHANAN</h3><p>Aktiviti dan pertandingan.</p></div>
-<div class="card"><h3>PRESTASI</h3><p>Rekod pencapaian organisasi.</p></div>
-</div>
+<section id="roster">
+  <h2>ROSTER RASMI</h2>
+  <div class="cards">
+    <div class="card member"><h3>ZIKZZX</h3><p>Pemain NOVA LEGACY</p></div>
+    <div class="card member"><h3>ACEPSS</h3><p>Pemain NOVA LEGACY</p></div>
+    <div class="card member"><h3>KAELZZ</h3><p>Pemain NOVA LEGACY</p></div>
+  </div>
 </section>
 
-<section id="about" class="page">
-<div class="card">
-<h2>TENTANG NOVA LEGACY</h2>
-<p>NOVA LEGACY ialah organisasi esports yang berusaha membina pasukan berdisiplin, berkemahiran dan bersemangat tinggi.</p>
-<p><b>ONE TEAM ONE VICTORY ONE LEGACY</b></p>
-</div>
+<section id="recruit">
+  <h2>REKRUTAN PEMAIN</h2>
+  <div class="card">
+    <h3>Sertai NOVA LEGACY</h3>
+    <p>Calon pemain boleh mendaftar akaun melalui portal rasmi. Permohonan akan disemak oleh pihak pengurusan.</p>
+    <br>
+    <button class="primary" onclick="showPage('account')">DAFTAR SEKARANG</button>
+  </div>
 </section>
 
-<section id="roster" class="page">
-<div class="card">
-<h2>ROSTER RASMI</h2>
-<div class="grid">
-<div class="player"><h3>ZIKZZX</h3><p>Pemain</p></div>
-<div class="player"><h3>ACEPSS</h3><p>Pemain</p></div>
-<div class="player"><h3>KAELZZ</h3><p>Pemain</p></div>
-</div>
-</div>
+<section id="tournament">
+  <h2>KEJOHANAN</h2>
+  <div class="card">
+    <h3>NOVA LEGACY ESPORTS</h3>
+    <p>Maklumat kejohanan dan keputusan rasmi akan dikemas kini oleh pihak pengurusan.</p>
+  </div>
 </section>
 
-<section id="recruitment" class="page">
-<div class="card">
-<h2>PERMOHONAN PEMAIN</h2>
-<p>Permohonan boleh dibuat melalui pihak pengurusan NOVA LEGACY.</p>
-<p class="small">Borang ini belum disambungkan kepada pangkalan data.</p>
-</div>
-</section>
+<section id="account">
+  <div id="authArea" class="formbox">
+    <h2>LOG MASUK</h2>
+    <label>E-mel</label>
+    <input id="loginEmail" type="email" placeholder="Masukkan e-mel">
+    <label>Kata laluan</label>
+    <input id="loginPassword" type="password" placeholder="Masukkan kata laluan">
+    <button class="primary" onclick="login()">LOG MASUK</button>
+    <br><br>
+    <p class="small">Belum mempunyai akaun?</p>
+    <button class="secondary" onclick="showRegister()">DAFTAR AKAUN</button>
+    <div id="loginMessage" class="message"></div>
+  </div>
 
-<section id="tournament" class="page">
-<div class="card">
-<h2>KEJOHANAN</h2>
-<p>Maklumat kejohanan akan dikemas kini oleh pihak organisasi.</p>
-</div>
-</section>
+  <div id="registerArea" class="formbox" style="display:none">
+    <h2>PENDAFTARAN PEMAIN</h2>
 
-<section id="login" class="page">
-<div class="card">
-<h2>LOG MASUK AHLI</h2>
-<input type="email" placeholder="Email">
-<input type="password" placeholder="Kata laluan">
-<button onclick="alert('Sistem login belum disambungkan.')">LOG MASUK</button>
-<p class="small">Sistem akaun Supabase belum disambungkan.</p>
-</div>
+    <label>Nama penuh</label>
+    <input id="regName" placeholder="Nama penuh">
+
+    <label>Nickname</label>
+    <input id="regNickname" placeholder="Nickname permainan">
+
+    <label>Game ID</label>
+    <input id="regGameID" placeholder="Game ID">
+
+    <label>Role permainan</label>
+    <select id="regGameRole">
+      <option value="">Pilih role</option>
+      <option>Gold Lane</option>
+      <option>EXP Lane</option>
+      <option>Mid Lane</option>
+      <option>Jungler</option>
+      <option>Roamer</option>
+    </select>
+
+    <label>E-mel</label>
+    <input id="regEmail" type="email" placeholder="E-mel aktif">
+
+    <label>Kata laluan</label>
+    <input id="regPassword" type="password" placeholder="Minimum 6 aksara">
+
+    <p class="small">Jawatan akaun ditetapkan secara automatik sebagai PLAYER. Semua akaun baharu bermula dengan status PENDING.</p>
+    <br>
+    <button class="primary" onclick="register()">HANTAR PENDAFTARAN</button>
+    <br><br>
+    <button class="secondary" onclick="showLogin()">KEMBALI KE LOG MASUK</button>
+    <div id="registerMessage" class="message"></div>
+  </div>
+
+  <div id="dashboard" class="formbox" style="display:none">
+    <h2>DASHBOARD PEMAIN</h2>
+    <p class="small">Selamat datang ke portal NOVA LEGACY.</p>
+    <br>
+    <p>Nama: <b id="profileName">-</b></p><br>
+    <p>Nickname: <b id="profileNickname">-</b></p><br>
+    <p>Game ID: <b id="profileGameID">-</b></p><br>
+    <p>Game Role: <b id="profileGameRole">-</b></p><br>
+    <p>Jawatan: <b id="profileRole">-</b></p><br>
+    <p>Status akaun:</p>
+    <span class="status" id="profileStatus">-</span>
+    <p class="small" id="statusInfo"></p>
+    <br>
+    <button class="secondary" onclick="logout()">LOG KELUAR</button>
+  </div>
 </section>
 
 </main>
 
 <footer>
-<h3>NOVA LEGACY</h3>
-<p>ONE TEAM ONE VICTORY ONE LEGACY</p>
-<p class="small">© 2026 NOVA LEGACY OFFICIAL ESPORTS</p>
+  <p><b>NOVA LEGACY</b></p>
+  <p>ONE TEAM ONE VICTORY ONE LEGACY</p>
+  <p class="small">© 2026 NOVA LEGACY. All Rights Reserved.</p>
 </footer>
 
 <script>
-function openPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-const page=document.getElementById(id);
-if(page)page.classList.add('active');
-window.scrollTo(0,0);
+const SUPABASE_URL = "https://zxupksrrovhhuegxeeyj.supabase.co";
+const SUPABASE_KEY = "sb_publishable_A4aTowB3xAnV1Sse9RgSdA_VACaWkBM";
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+function showPage(id){
+  document.querySelectorAll("main section").forEach(s=>s.classList.remove("show"));
+  document.getElementById(id).classList.add("show");
 }
+
+function showRegister(){
+  document.getElementById("authArea").style.display="none";
+  document.getElementById("registerArea").style.display="block";
+  document.getElementById("dashboard").style.display="none";
+}
+
+function showLogin(){
+  document.getElementById("authArea").style.display="block";
+  document.getElementById("registerArea").style.display="none";
+  document.getElementById("dashboard").style.display="none";
+}
+
+function showMessage(id,message){
+  const box=document.getElementById(id);
+  box.style.display="block";
+  box.textContent=message;
+}
+
+async function register(){
+  const full_name=document.getElementById("regName").value.trim();
+  const nickname=document.getElementById("regNickname").value.trim();
+  const game_id=document.getElementById("regGameID").value.trim();
+  const game_role=document.getElementById("regGameRole").value;
+  const email=document.getElementById("regEmail").value.trim();
+  const password=document.getElementById("regPassword").value;
+
+  if(!full_name||!nickname||!game_id||!game_role||!email||!password){
+    showMessage("registerMessage","Sila lengkapkan semua maklumat.");
+    return;
+  }
+
+  if(password.length<6){
+    showMessage("registerMessage","Kata laluan mesti sekurang-kurangnya 6 aksara.");
+    return;
+  }
+
+  const {data,error}=await db.auth.signUp({
+    email,
+    password,
+    options:{
+      data:{
+        full_name,
+        nickname,
+        game_id,
+        game_role
+      }
+    }
+  });
+
+  if(error){
+    showMessage("registerMessage","Pendaftaran gagal: "+error.message);
+    return;
+  }
+
+  if(data.session){
+    await loadProfile();
+  }else{
+    showMessage("registerMessage","Pendaftaran berjaya dihantar. Sila semak e-mel untuk pengesahan jika diminta, kemudian log masuk.");
+  }
+}
+
+async function login(){
+  const email=document.getElementById("loginEmail").value.trim();
+  const password=document.getElementById("loginPassword").value;
+
+  if(!email||!password){
+    showMessage("loginMessage","Masukkan e-mel dan kata laluan.");
+    return;
+  }
+
+  const {error}=await db.auth.signInWithPassword({email,password});
+
+  if(error){
+    showMessage("loginMessage","Log masuk gagal: "+error.message);
+    return;
+  }
+
+  await loadProfile();
+}
+
+async function loadProfile(){
+  const {data:{user}}=await db.auth.getUser();
+
+  if(!user){
+    showLogin();
+    return;
+  }
+
+  const {data,error}=await db
+    .from("profiles")
+    .select("full_name,nickname,game_id,game_role,role,status")
+    .eq("id",user.id)
+    .single();
+
+  if(error){
+    showMessage("loginMessage","Tidak dapat membaca profil: "+error.message);
+    return;
+  }
+
+  document.getElementById("profileName").textContent=data.full_name||"-";
+  document.getElementById("profileNickname").textContent=data.nickname||"-";
+  document.getElementById("profileGameID").textContent=data.game_id||"-";
+  document.getElementById("profileGameRole").textContent=data.game_role||"-";
+  document.getElementById("profileRole").textContent=(data.role||"player").toUpperCase();
+  document.getElementById("profileStatus").textContent=(data.status||"pending").toUpperCase();
+
+  document.getElementById("statusInfo").textContent=
+    data.status==="approved"
+    ? "Akaun anda telah diluluskan."
+    : "Akaun anda sedang menunggu kelulusan pihak pengurusan.";
+
+  document.getElementById("authArea").style.display="none";
+  document.getElementById("registerArea").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+  showPage("account");
+}
+
+async function logout(){
+  await db.auth.signOut();
+  showLogin();
+  showPage("account");
+}
+
+db.auth.onAuthStateChange((event,session)=>{
+  if(event==="SIGNED_IN" && session){
+    loadProfile();
+  }
+});
+
 </script>
 </body>
 </html>
+>
