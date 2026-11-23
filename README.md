@@ -1,0 +1,2 @@
+# nova-legacy-official
+NOVA LEGACY OFFICIAL ESPORTS PORTAL
